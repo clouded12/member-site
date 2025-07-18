@@ -27,6 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="justify-self-center font-bold text-5xl text-black m-3">会員サイト</header>
         {children}
       </body>
     </html>
