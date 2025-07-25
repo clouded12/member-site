@@ -2,14 +2,23 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/input";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
 
+    const router = useRouter();
+    const handleClick = () => {
+        router.push("./dashboard")
+    };
+    const registrationClick = () => {
+        router.push("./registration")
+    };
+
     return (
-        <div className="py-4">
+        <div className="py-4 justify-items-center">
             <h1 className="justify-self-center font-bold text-4xl text-blue-500 mb-4">ログイン</h1>
             <Input
                 id="id"
@@ -32,11 +41,11 @@ export default function LoginPage() {
                 />
                 <label htmlFor="showPassword" className="text-black cursor-pointer">パスワードを表示する</label>
             </div>
-            <Button type="submit" onClick={LoginClick}>
+            <Button type="submit" onClick={handleClick}>
                 ログイン</Button>
             <button type="submit" className="flex justify-self-center underline text-cyan-500 cursor-pointer">パスワードを忘れた方はこちら</button>
             <br />
-            <Button type="submit">会員登録はこちら</Button>
+            <Button type="submit" onClick={registrationClick}>会員登録はこちら</Button>
         </div>
     )
 }
