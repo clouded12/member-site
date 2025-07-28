@@ -30,10 +30,10 @@ export default function Registration() {
     };
 
     return (
-        <div>
+        <div className="w-full">
             <h1 className="justify-self-center text-blue-500 font-bold text-2xl m-5">新規会員登録</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className=" w-full max-w-md mx-auto space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className=" w-full max-w-md space-y-4 mx-auto ">
                 <Input
                     id="email"
                     type="email"

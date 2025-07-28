@@ -14,7 +14,11 @@ export const validationSchema = z.object({
         .nonempty("パスワードは必須です。")
         .min(6, "パスワードは6文字以上で入力してください。"),
     confirmation: z
-        .string()
-        .nonempty("パスワードは必須です。")
-        .min(6, "パスワードは6文字以上で入力してください。"),
+        .string(),
+        // .nonempty("パスワードは必須です。")
+        // .min(6, "パスワードは6文字以上で入力してください。"),
+})
+.refine((data) => data.password === data.confirmation, {
+    path: ["confirmation"],
+    message: "パスワードが一致しません。",
 });
