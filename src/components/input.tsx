@@ -9,11 +9,11 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 // label,id,classNameを受け取る、その他入力があれば受けとる
 export default function Input({ label, id, className, error, ...props }: InputProps) {
     return (
-        <div className="mb-4">
+        <div className="mb-4 justify-self-center">
             {/* labelの入力があればlabelを配置 */}
             {label && (
                 <label
-                    htmlFor="{id}"
+                    htmlFor={id}
                     className={`block mb-1 text-base text-black font-bold`}
                 >
                     {label}

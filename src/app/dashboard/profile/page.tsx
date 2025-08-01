@@ -4,8 +4,12 @@ export default function ProfilePage() {
             <h1 className="text-2xl font-bold mb-4 text-black">
                 プロフィール
             </h1>
-            <p className="text-black">ユーザー名</p>
-            <p className="text-black">メールアドレス</p>
+            <div className="text-black font-bold">
+                <p>ユーザー名</p>
+                <p>メールアドレス</p>
+                <p>パスワード</p>
+            </div>
+
         </div>
     )
 }

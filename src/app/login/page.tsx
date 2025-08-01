@@ -39,7 +39,7 @@ export default function LoginPage() {
 
     return (
         <div className="py-4">
-            <h1 className="justify-self-center font-bold text-4xl text-blue-500 mb-4">ログイン</h1>
+            <h1 className="font-bold text-4xl text-blue-500 mb-4 justify-self-center">ログイン</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className=" w-full max-w-md space-y-4 mx-auto ">
                 <Input
