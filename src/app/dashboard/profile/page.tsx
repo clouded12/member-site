@@ -5,7 +5,7 @@ export default function ProfilePage() {
                 プロフィール
             </h1>
             <div className="text-black font-bold">
-                <p>ユーザー名</p>
+                <p>ユーザー名:default</p>
                 <p>メールアドレス</p>
                 <p>パスワード</p>
             </div>
