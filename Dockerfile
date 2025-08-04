@@ -12,7 +12,7 @@ Run apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*  
 
 # パッケージファイルをコピー
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 # 依存関係をインストール
 RUN npm install
@@ -24,4 +24,4 @@ COPY . .
 EXPOSE 3000
 
 # コンテナ起動時のコマンド
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
