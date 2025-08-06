@@ -8,6 +8,5 @@ export const loginValidationSchema = z.object({
         .email("正しいメールアドレスを入力してください。"),
     password: z
         .string()
-        .nonempty("パスワードは必須です。")
-        .min(6, "パスワードは6文字以上で入力してください。"),
+        .nonempty("パスワードは必須です。"),
 })

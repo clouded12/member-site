@@ -25,3 +25,6 @@ EXPOSE 3000
 
 # コンテナ起動時のコマンド
 CMD ["npm", "run", "dev"]
+
+# Prisma Client の生成がビルド時に行われる
+RUN npx prisma generate

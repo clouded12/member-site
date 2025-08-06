@@ -9,75 +9,97 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface LoginForm {
-    email: string,
-    password: string,
+  email: string;
+  password: string;
 }
+
 export default function LoginPage() {
-    const [showPassword, setShowPassword] = useState(false);
-    // const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginForm>({
-        mode: "onChange",
-        resolver: zodResolver(loginValidationSchema),
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    mode: "onChange",
+    resolver: zodResolver(loginValidationSchema),
+  });
 
-    const onSubmit = (data: LoginForm) => {
-        console.log(data)
-    };
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const router = useRouter();
-    const handleClick = () => {
-        router.push("./dashboard")
-    };
-    const registrationClick = () => {
-        router.push("./registration")
-    };
+      const result = await res.json();
 
-    return (
-        <div className="py-4">
-            <h1 className="font-bold text-4xl text-blue-500 mb-4 justify-self-center">ログイン</h1>
+      if (res.ok) {
+        // ログイン成功 → ダッシュボードへ遷移
+        router.push("/dashboard");
+      } else {
+        // エラーメッセージを表示
+        setErrorMessage(result.error || "ログインに失敗しました");
+      }
+    } catch (error) {
+      setErrorMessage("サーバーエラーが発生しました");
+    }
+  };
 
-            <form onSubmit={handleSubmit(onSubmit)} className=" w-full max-w-md space-y-4 mx-auto ">
-                <Input
-                    id="email"
-                    type="email"
-                    label="メールアドレス:"
-                    error={errors.email?.message}
-                    {...register("email")}
-                />
-                <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    // value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
-                    label="パスワード:"
-                    error={errors.password?.message}
-                    {...register("password")}
-                />
-                <div className="flex place-self-center space-x-2 text-sm mb-4">
-                    <input
-                        id="showPassword"
-                        type="checkbox"
-                        checked={showPassword}
-                        onChange={(e) => setShowPassword(e.target.checked)}
-                    />
-                    <label htmlFor="showPassword" className="text-black cursor-pointer">パスワードを表示する</label>
-                </div>
-                <Button type="submit" onClick={handleClick}>
-                    ログイン</Button>
-            </form>
+  const registrationClick = () => {
+    router.push("/registration");
+  };
 
-            <button type="submit" className="flex justify-self-center underline text-cyan-500 cursor-pointer">パスワードを忘れた方はこちら</button>
-            <br />
-            <Button type="submit" onClick={registrationClick}>会員登録はこちら</Button>
+  return (
+    <div className="py-4">
+      <h1 className="font-bold text-4xl text-blue-500 mb-4 justify-self-center">ログイン</h1>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md space-y-4 mx-auto">
+        <Input
+          id="email"
+          type="email"
+          label="メールアドレス:"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+        <Input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          label="パスワード:"
+          error={errors.password?.message}
+          {...register("password")}
+        />
+
+        <div className="flex place-self-center space-x-2 text-sm mb-4">
+          <input
+            id="showPassword"
+            type="checkbox"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          <label htmlFor="showPassword" className="text-black cursor-pointer">
+            パスワードを表示する
+          </label>
         </div>
-    )
-}
 
-function LoginClick() {
-    console.log("Login Clicked!");
+        {/* エラーメッセージ表示 */}
+        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+
+        <Button type="submit">ログイン</Button>
+      </form>
+
+      <button type="button" className="flex justify-self-center underline text-cyan-500 cursor-pointer">
+        パスワードを忘れた方はこちら
+      </button>
+      <br />
+      <Button type="button" onClick={registrationClick}>
+        会員登録はこちら
+      </Button>
+    </div>
+  );
 }

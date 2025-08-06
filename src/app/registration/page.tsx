@@ -1,11 +1,11 @@
 'use client';
 
-import Button from "@/components/Button"
-import Input from "@/components/input"
+import Button from "@/components/Button";
+import Input from "@/components/input";
 import { validationSchema } from "@/utils/validationSchema";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import z from "zod"
 
 interface RegistrationForm {
@@ -25,9 +25,38 @@ export default function Registration() {
         resolver: zodResolver(validationSchema),
     });
 
-    const onSubmit = (data: RegistrationForm) => {
-        console.log(data);
-    };
+    // const onSubmit = (data: RegistrationForm) => {
+    //     console.log(data);
+    // };
+
+    const onSubmit = async (data: RegistrationForm) => {
+    // パスワード確認チェックはバリデーション側でやるとして
+    const { name, email, password } = data;
+
+    try {
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: name, email, password }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("登録に失敗:", errorData);
+        alert(`登録に失敗しました: ${errorData.message || "エラー"}`);
+        return;
+      }
+
+      const result = await res.json();
+      console.log("登録成功:", result);
+      alert("登録が完了しました！");
+    } catch (error) {
+      console.error("送信中にエラー:", error);
+      alert("通信エラーが発生しました");
+    }
+  };
 
     return (
         <div className="w-full">
