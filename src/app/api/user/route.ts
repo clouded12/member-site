@@ -1,6 +1,7 @@
 // app/api/user/route.ts
 import { PrismaClient } from '@/generated/prisma';
 import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -13,11 +14,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // パスワードのハッシュ化
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
       data: {
         username,
         email,
-        password,
+        password: hashedPassword, // ハッシュ化したパスワードを保存
       },
     });
 
@@ -29,7 +33,15 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        createdAt: true,
+        // パスワードは含めない
+      },
+    });
     return NextResponse.json(users, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ error: 'Failed to fetch users', detail: err.message }, { status: 500 });

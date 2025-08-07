@@ -1,5 +1,6 @@
 import { PrismaClient } from "@/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -20,8 +21,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // 今はプレーンテキスト同士で比較（後でbcrypt.compareに置き換える）
-    if (user.password !== password) {
+    // bcryptを使ってハッシュと比較
+    const isPasswordValid = await bcrypt.compare(password,
+      user.password);
+
+    if (!isPasswordValid) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
 
