@@ -1,3 +1,6 @@
+'use client';
+
+import { logout } from "@/hooks/useLogout";
 import Link from "next/link";
 
 export default function Sidebar() {
@@ -9,7 +12,12 @@ export default function Sidebar() {
                 <Link href="/dashboard" className="hover:text-blue-400">ホーム</Link>
                 <Link href="/dashboard/profile" className="hover:text-blue-400">プロフィール</Link>
                 <Link href="/dashboard/settings" className="hover:text-blue-400">設定</Link>
-                <Link href="/logout" className="hover:text-red-400">ログアウト</Link>
+                <button
+                    onClick={logout}
+                    className="text-left hover:text-red-400"
+                >
+                    ログアウト
+                </button>
             </nav>
         </aside>
     );

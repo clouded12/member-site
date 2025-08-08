@@ -1,6 +1,14 @@
 import Sidebar from "@/components/Sidebar"
+import { getCurrentUser } from "@/lib/auth"
+import { redirect } from "next/navigation"
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+    const user = await getCurrentUser();
+
+    // ログインしていなければログイン画面に戻す
+    if(!user) {
+        redirect('/login');
+    }
     return (
         <div>
             <Sidebar />
