@@ -14,7 +14,7 @@ export default function Sidebar() {
                 <Link href="/dashboard/settings" className="hover:text-blue-400">設定</Link>
                 <button
                     onClick={logout}
-                    className="text-left hover:text-red-400"
+                    className="text-left hover:text-red-400 hover:cursor-pointer"
                 >
                     ログアウト
                 </button>

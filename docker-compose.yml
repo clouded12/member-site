@@ -21,6 +21,25 @@ services:
       - postgres
       - redis
 
+    # develop:
+    #   watch:
+    #     # ホストマシンのカレントディレクトリをコンテナ内の /app に同期
+    #     - path: .
+    #       target: /app
+    #       action: sync
+
+    #     # package.jsonに変更があった場合にコンテナを再ビルドします
+    #     - path: ./package.json
+    #       action: rebuild
+
+    #     # Dockerfileに変更があった場合にコンテナを再ビルドします
+    #     - path: ./Dockerfile
+    #       action: rebuild
+
+    #     # next.config.mjsに変更があった場合にコンテナを再起動します
+    #     - path: ./next.config.mjs
+    #       action: rebuild
+
   postgres:
     image: postgres:15
     container_name: postgres-db
