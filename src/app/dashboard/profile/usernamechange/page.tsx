@@ -1,9 +1,8 @@
 'use client';
 
-import Input from "@/components/input"
-import { validationSchema } from "@/utils/validationSchema"
-import { useRouter } from "next/router"
-import React, { useState } from "react"
+import Input from "@/components/input";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function UsernameChange() {
   const [newUsername, setNewUsername] = useState('');
@@ -53,7 +52,9 @@ export default function UsernameChange() {
     <div>
       <form onSubmit={handleUsernameChange}>
         <div>
-          <label htmlFor="new-username">新しいユーザー名</label>
+          <label htmlFor="new-username" className="text-black font-bold text-2xl">  
+            新しいユーザー名
+          </label>
           <Input 
             type="text"
             id="new-username"
@@ -65,10 +66,17 @@ export default function UsernameChange() {
         <button
           type="submit"
           disabled={isLoading}
+          className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700" 
         >
             保存
         </button>
-        <button>キャンセル</button>
+        <button 
+          type="button"
+          onClick={() => router.push('/dashboard/profile')}
+          disabled={isLoading}
+          className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700">
+          キャンセル
+        </button>
       </form>
     </div>
   )

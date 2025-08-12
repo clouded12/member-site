@@ -1,12 +1,10 @@
 import { getCurrentUser } from "@/lib/auth"
 import Link from "next/link";
 import { redirect } from "next/navigation"
-import { useRouter } from "next/navigation";
 
 export default async function ProfilePage() {
     const user = await getCurrentUser();
-    const router = useRouter();
-
+    
     if(!user) {
         // 認証されていない場合はログインページへリダイレクト
         redirect('/login');
@@ -26,10 +24,15 @@ export default async function ProfilePage() {
                     ユーザー名を変更
                     </button>
                 </Link>
-                
-                <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
+                <p className="text-xl">
+                    メールアドレス:{user.email}
+                </p>
+                <Link href="/dashboard/profile/mailadresschange" passHref>
+                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
                     メールアドレスを変更
-                </button>
+                    </button>
+                </Link>
+               
                 <p>
                     <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
                     パスワードを変更
