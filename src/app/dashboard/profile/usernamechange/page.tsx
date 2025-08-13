@@ -55,12 +55,18 @@ export default function UsernameChange() {
 
   return (
     <div>
+      <h1 className="text-3xl font-bold text-center mb-6 text-black">ユーザー名の変更</h1>
+      
+      {message && (
+          <div className={`p-3 mb-4 rounded-lg text-sm text-center ${message.includes('成功') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {message}
+          </div>
+       )}
+
       <form onSubmit={handleUsernameChange}>
         <div>
-          <label htmlFor="new-username" className="text-black font-bold text-2xl">  
-            新しいユーザー名
-          </label>
           <Input 
+            label="新しいユーザー名"
             type="text"
             id="new-username"
             onChange={(e) => setNewUsername(e.target.value)}
@@ -73,7 +79,7 @@ export default function UsernameChange() {
           disabled={isLoading}
           className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700" 
         >
-            保存
+            {isLoading ? '保存中...' : '保存'}
         </button>
         <button 
           type="button"

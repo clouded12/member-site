@@ -57,12 +57,18 @@ export default function EmailChange() {
 
   return (
     <div>
+      <h1 className="text-3xl font-bold text-center mb-6 text-black">メールアドレスの変更</h1>
+
+      {message && (
+          <div className={`p-3 mb-4 rounded-lg text-sm text-center ${message.includes('成功') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {message}
+          </div>
+       )}
+       
       <form onSubmit={handleEmailChange}>
         <div>
-          <label htmlFor="new-username" className="text-black font-bold text-2xl">  
-            新しいメールアドレス
-          </label>
           <Input 
+            label="新しいメールアドレス"
             type="email"
             id="new-email"
             onChange={(e) => setNewEmail(e.target.value)}
