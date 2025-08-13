@@ -4,42 +4,44 @@ import Input from "@/components/input";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default function UsernameChange() {
-  const [newUsername, setNewUsername] = useState('');
+export default function EmailChange() {
+  const [newEmail, setNewEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
-  const handleUsernameChange = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();  // ページのリロードを無効化
     setMessage('');
     setIsLoading(true);
   
   // バリデーション
-    if (!newUsername.trim()) {
-      setMessage('新しいユーザー名を入力してください。');
+    if (!newEmail.trim()) {
+      setMessage('新しいメールアドレスを入力してください。');
       setIsLoading(false);
       return;
     }
-    if(newUsername.length < 4) {
-      setMessage('ユーザー名は4文字以上で入力してください。');
+  // メールアドレスのバリデーション
+    const emaiRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emaiRegex.test(newEmail)) {
+      setMessage('有効なメールアドレスを入力してください。');
       setIsLoading(false);
       return;
     }
 
    try {
       // サーバーサイドAPIにPUTリクエストを送信
-      const res = await fetch('/api/profile/username', {
+      const res = await fetch('/api/profile/email', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: newUsername }),
+        body: JSON.stringify({ email: newEmail }),
       });
 
       if (res.ok) {
-        setMessage('ユーザー名が正常に更新されました。');
-        setNewUsername('');
+        setMessage('メールアドレスが正常に更新されました。');
+        setNewEmail('');
         // プロフィールトップページにリダイレクト
         router.push('/dashboard/profile');
       } else {
@@ -55,16 +57,16 @@ export default function UsernameChange() {
 
   return (
     <div>
-      <form onSubmit={handleUsernameChange}>
+      <form onSubmit={handleEmailChange}>
         <div>
           <label htmlFor="new-username" className="text-black font-bold text-2xl">  
-            新しいユーザー名
+            新しいメールアドレス
           </label>
           <Input 
-            type="text"
-            id="new-username"
-            onChange={(e) => setNewUsername(e.target.value)}
-            placeholder="新しいユーザー名を入力"
+            type="email"
+            id="new-email"
+            onChange={(e) => setNewEmail(e.target.value)}
+            placeholder="新しいメールアドレスを入力"
             disabled={isLoading} 
           />
         </div>
