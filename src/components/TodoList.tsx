@@ -4,38 +4,48 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 import React, { useState } from "react"
 
 type TodoItem = {
+    id: number;
     text: string;
     completed: boolean;
 };
 
-const TodoList: React.FC = () => {
+// 親コンポーネントからPropsとしてデータと関数を受け取るように変更
+type TodoListProps = {
+    todoItems: TodoItem[];
+    onAdd: (text: string) => void;
+    onToggle: (id: number, completed: boolean) => void;
+    onDelete: (id: number) => void;
+};
+
+const TodoList: React.FC<TodoListProps> = ({ todoItems, onAdd, onToggle, onDelete }) => {
     const [inputValue, setInputValue] = useState('');
-    const [todoItems, setTodoItems] = useState<TodoItem[]>([]);
+    // const [todoItems, setTodoItems] = useState<TodoItem[]>([]);
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
 
         // 文字列が空、スペースのみの場合無視する
         if (!inputValue.trim()) return;
-
-        // 入力された文字をリストに追加
-        setTodoItems((prevItems) => [
-            ...prevItems,
-            { text: inputValue.trim(), completed: false }
-        ]);
+        // 親コンポーネントのonAdd関数を呼び出す
+        onAdd(inputValue.trim());
+        // // 入力された文字をリストに追加
+        // setTodoItems((prevItems) => [
+        //     ...prevItems,
+        //     { text: inputValue.trim(), completed: false }
+        // ]);
         setInputValue(''); // 入力欄を空にする
     };
 
-    const toggleCompleted = (index: number) => {
-        setTodoItems(prevItems =>
-            prevItems.map((item, i) =>
-                i === index ? { ...item, completed: !item.completed } : item)
-        );
-    };
+    // const toggleCompleted = (index: number) => {
+    //     setTodoItems(prevItems =>
+    //         prevItems.map((item, i) =>
+    //             i === index ? { ...item, completed: !item.completed } : item)
+    //     );
+    // };
 
-    const handleDelete = (index: number) => {
-        setTodoItems(prevItems => prevItems.filter((_, i) => i !== index));
-    };
+    // const handleDelete = (index: number) => {
+    //     setTodoItems(prevItems => prevItems.filter((_, i) => i !== index));
+    // };
 
     return (
         <div className="max-w-md mx-auto p-4">
@@ -60,20 +70,20 @@ const TodoList: React.FC = () => {
             <div className="space-y-2">
                 {todoItems.map((item, index) => (
                     // チェックボックスにチェックが入っているかで表示を切り替え
-                    <div key={index} className={`p-2 border rounded flex items-center justify-between gap-2 ${item.completed ? ' bg-gray-200 text-gray-500' : 'bg-white text-black'}`}>
+                    <div key={item.id} className={`p-2 border rounded flex items-center justify-between gap-2 ${item.completed ? ' bg-gray-200 text-gray-500' : 'bg-white text-black'}`}>
                         <div className={`flex items-center gap-2
                             ${item.completed ? 'line-through' : ''}`}>
                             <input
                                 type="checkbox"
                                 checked={item.completed}
-                                onChange={() => toggleCompleted(index)}
+                                onChange={() => onToggle(item.id, item.completed)} // 親コンポーネントのonToggle関数を呼び出す
                             />
                             <span>{item.text}</span>
                         </div>
 
                         {/* 削除ボタン */}
                         <button
-                            onClick={() => handleDelete(index)}
+                            onClick={() => onDelete(item.id)}
                             className="font-bold"
                             aria-label="削除"
                             title="削除">
@@ -82,6 +92,9 @@ const TodoList: React.FC = () => {
                     </div>
                 ))}
             </div>
+            {todoItems.length === 0 && (
+                <p className="text-center text-gray-500 mt-4">Todoはありません。</p>
+            )}
         </div>
     );
 };

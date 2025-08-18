@@ -22,4 +22,14 @@ model User {
   emailVerified DateTime? 
   createdAt DateTime @default(now())                // 登録日
   updatedAt DateTime @updatedAt
+  todos     Todo[]
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  text      String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }

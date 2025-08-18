@@ -8,7 +8,7 @@ export default function Dashboard() {
         <div>
             <h1 className="text-3xl font-bold mb-4 text-black">ようこそ！会員サイトへ</h1>
             <h2 className="text-black text-2xl">ToDoリスト</h2>
-            <TodoList />
+            {/* <TodoList /> */}
         </div>
     )
 }

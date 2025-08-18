@@ -15,7 +15,7 @@ export default async function ProfilePage() {
             <h1 className="text-2xl font-bold mb-4 text-black">
                 プロフィール
             </h1>
-            <div className="text-black font-bold space-y-3">
+            <div className="flex-col text-black font-bold space-y-4">
                 <p className="text-xl">
                     ユーザー名:{user.username}
                 </p>

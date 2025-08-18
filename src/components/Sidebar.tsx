@@ -9,9 +9,19 @@ export default function Sidebar() {
             <h2 className="text-xl font-bold">メニュー</h2>
 
             <nav className="flex flex-col space-y-3">
-                <Link href="/dashboard" className="hover:text-blue-400">ホーム</Link>
-                <Link href="/dashboard/profile" className="hover:text-blue-400">プロフィール</Link>
-                <Link href="/dashboard/settings" className="hover:text-blue-400">設定</Link>
+                <Link href="/dashboard" className="hover:text-blue-400">
+                    ホーム
+                </Link>
+                <Link href="/dashboard/profile" className="hover:text-blue-400">
+                    プロフィール
+                </Link>
+                <Link href="/todo"
+                className="hover:text-blue-400">
+                    Todoリスト
+                </Link>
+                <Link href="/dashboard/settings" className="hover:text-blue-400">
+                    設定
+                </Link>
                 <button
                     onClick={logout}
                     className="text-left hover:text-red-400 hover:cursor-pointer"

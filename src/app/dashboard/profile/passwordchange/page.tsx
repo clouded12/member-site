@@ -99,21 +99,22 @@ export default function UsernameChange() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           disabled={isLoading} 
         />
-        
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700" 
-        >
+        <div className="flex justify-center items-center space-x-4">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700" 
+          >
             {isLoading ? '保存中...' : '保存'}
-        </button>
-        <button 
-          type="button"
-          onClick={() => router.push('/dashboard/profile')}
-          disabled={isLoading}
-          className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700">
-          キャンセル
-        </button>
+          </button>
+          <button 
+            type="button"
+            onClick={() => router.push('/dashboard/profile')}
+            disabled={isLoading}
+            className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700">
+            キャンセル
+          </button>
+        </div>        
       </form>
     </div>
   )
