@@ -15,7 +15,7 @@ export default function Sidebar() {
                 <Link href="/dashboard/profile" className="hover:text-blue-400">
                     プロフィール
                 </Link>
-                <Link href="/todo"
+                <Link href="/dashboard/todo"
                 className="hover:text-blue-400">
                     Todoリスト
                 </Link>

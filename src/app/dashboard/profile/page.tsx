@@ -28,7 +28,7 @@ export default async function ProfilePage() {
                     メールアドレス:{user.email}
                 </p>
                 <Link href="/dashboard/profile/emailchange" passHref>
-                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
+                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded mb-4">
                     メールアドレスを変更
                     </button>
                 </Link>

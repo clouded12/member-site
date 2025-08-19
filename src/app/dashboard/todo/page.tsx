@@ -111,10 +111,6 @@ export default function TodoPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4 text-black">
-        Todoリスト
-      </h1>
-
       <div className="mt-8 bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">Todoリスト</h2>
         <TodoList

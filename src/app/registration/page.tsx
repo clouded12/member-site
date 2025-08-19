@@ -6,7 +6,6 @@ import { validationSchema } from "@/utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import z from "zod"
 
 interface RegistrationForm {
     name: string;
@@ -30,7 +29,7 @@ export default function Registration() {
     // };
 
     const onSubmit = async (data: RegistrationForm) => {
-    // パスワード確認チェックはバリデーション側でやるとして
+    
     const { name, email, password } = data;
 
     try {
