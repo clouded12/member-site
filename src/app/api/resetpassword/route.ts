@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// 既存のメールアドレスと新しいパスワードを登録する
 export async function POST(request: Request) {
   try {
     const { email, newPassword } = await request.json();
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
     });
 
     if (!user){
-      // 存在しないユーザー(メールアドレス)の場合でも、成功したようにメッセージを表示
+      // セキュリティのため、存在しないユーザー(メールアドレス)の場合でも、成功したようにメッセージを表示 
       return NextResponse.json({ messge: 'パスワードリセットのリクエストを受け付けました。' }, {status: 200 })
     }
 

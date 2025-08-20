@@ -18,6 +18,7 @@ export const validationSchema = z.object({
         // .nonempty("パスワードは必須です。")
         // .min(6, "パスワードは6文字以上で入力してください。"),
 })
+// パスワードとパスワード(確認)が一致しなければエラー
 .refine((data) => data.password === data.confirmation, {
     path: ["confirmation"],
     message: "パスワードが一致しません。",

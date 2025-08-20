@@ -54,6 +54,9 @@ export default function LoginPage() {
   const registrationClick = () => {
     router.push("/registration");
   };
+  const resetClick = () => {
+    router.push("/reset");
+  }
 
   return (
     <div className="py-4">
@@ -93,7 +96,10 @@ export default function LoginPage() {
         <Button type="submit">ログイン</Button>
       </form>
 
-      <button type="button" className="flex justify-self-center underline text-cyan-500 cursor-pointer">
+      <button type="button" 
+        className="flex justify-self-center underline text-cyan-500 cursor-pointer"
+        onClick={resetClick}
+      >
         パスワードを忘れた方はこちら
       </button>
       <br />

@@ -45,6 +45,7 @@ export default function TodoPage() {
     fetchData();
   }, []);
 
+  // タスク追加
   const handleAddTodo = async (text: string) => {
     try {
       const res = await fetch('/api/todos', {
@@ -57,10 +58,11 @@ export default function TodoPage() {
         setTodos([addedTodo, ...todos]);
       }
     } catch (err) {
-      console.error("Error adding todo:", err);
+      console.error("タスク追加時にエラーが発生しました:", err);
     }
   };
 
+  // タスクの完了状態を変更
   const handleToggleTodo = async (id: number, completed: boolean) => {
     try {
       const res = await fetch('/api/todos', {
@@ -74,10 +76,11 @@ export default function TodoPage() {
         );
       }
     } catch (err) {
-      console.error("Error toggling todo:", err);
+      console.error("エラーが発生しました:", err);
     }
   };
 
+  // タスクを削除
    const handleDeleteTodo = async (id: number) => {
     try {
       const res = await fetch('/api/todos', {
@@ -89,7 +92,7 @@ export default function TodoPage() {
         setTodos(todos.filter((todo) => todo.id !== id));
       }
     } catch (err) {
-      console.error("Error deleting todo:", err);
+      console.error("タスク削除時にエラーが発生しました:", err);
     }
   };
 
@@ -112,7 +115,10 @@ export default function TodoPage() {
   return (
     <div>
       <div className="mt-8 bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Todoリスト</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Todoリスト
+        </h2>
+        {/* タスク追加、完了、削除の動作を設定 */}
         <TodoList
           todoItems={todos}
           onAdd={handleAddTodo}
