@@ -4,9 +4,10 @@ import Button from "@/components/Button";
 import Input from "@/components/input";
 import { validationSchema } from "@/utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
+// 型
 interface RegistrationForm {
     name: string;
     email: string;
@@ -15,19 +16,19 @@ interface RegistrationForm {
 }
 
 export default function Registration() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
+  // パスワードの表示状態を切り替えるためのuseState
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+      register,
+      handleSubmit,
+      formState: { errors },
     } = useForm<RegistrationForm>({
-        mode: "onChange",
-        resolver: zodResolver(validationSchema),
+      mode: "onChange",
+      resolver: zodResolver(validationSchema),
     });
 
-    // const onSubmit = (data: RegistrationForm) => {
-    //     console.log(data);
-    // };
-
+    // 登録ボタン押下時の動作
     const onSubmit = async (data: RegistrationForm) => {
     
     const { name, email, password } = data;
@@ -82,15 +83,27 @@ export default function Registration() {
 
                 <Input
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     label="パスワード:"
                     error={errors.password?.message}
                     {...register("password")}
                 />
 
+                <div className="flex place-self-center space-x-2 text-sm mb-4">
+                  <input
+                    id="showPassword"
+                    type="checkbox"
+                    checked={showPassword}
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                  />
+                  <label htmlFor="showPassword" className="text-black cursor-pointer">
+                    パスワードを表示する
+                  </label>
+                </div>
+
                 <Input
                     id="confirmation"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     label="パスワード(確認):"
                     error={errors.confirmation?.message}
                     {...register("confirmation")}

@@ -19,9 +19,9 @@ export default function Sidebar() {
                 className="hover:text-blue-400">
                     Todoリスト
                 </Link>
-                <Link href="/dashboard/settings" className="hover:text-blue-400">
+                {/* <Link href="/dashboard/settings" className="hover:text-blue-400">
                     設定
-                </Link>
+                </Link> */}
                 <button
                     onClick={logout}
                     className="text-left hover:text-red-400 hover:cursor-pointer"

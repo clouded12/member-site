@@ -11,6 +11,7 @@ export default function UsernameChange() {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   
   const handlePasswordChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();  // ページのリロードを無効化
@@ -72,9 +73,22 @@ export default function UsernameChange() {
 
       <form onSubmit={handlePasswordChange}>
         
+        {/* パスワードの表示状態を切り替えるチェックボックス */}
+        <div className="flex place-self-center space-x-2 text-sm mb-4">
+          <input
+            id="showPassword"
+            type="checkbox"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          <label htmlFor="showPassword" className="text-black cursor-pointer">
+            パスワードを表示する
+          </label>
+        </div>
+        
         <Input 
           label="現在のパスワード"
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="current-password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
@@ -83,7 +97,7 @@ export default function UsernameChange() {
         />
         <Input 
           label="新しいパスワード"
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="new-password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
@@ -93,7 +107,7 @@ export default function UsernameChange() {
 
         <Input 
           label="新しいパスワード(確認)"
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="confirm-password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

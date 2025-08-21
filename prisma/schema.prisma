@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())  // 主キー
-  username  String   @unique                        // ユーザー名（一意）
+  username  String                                  // ユーザー名（一意）
   email     String   @unique                        // メールアドレス（一意）
   password  String                                  // ハッシュ化されたパスワード
   emailVerified DateTime? 
