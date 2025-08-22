@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   const { username, email, password } = body;
 
   if (!username || !email || !password) {
-    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    return NextResponse.json({ error: '入力されていないフィールドがあります。' }, { status: 400 });
   }
 
   try {
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(user, { status: 201 });
   } catch (err: any) {
-    return NextResponse.json({ error: 'User creation failed', detail: err.message }, { status: 500 });
+    return NextResponse.json({ error: 'ユーザーの登録に失敗しました。', detail: err.message }, { status: 500 });
   }
 }
 
@@ -44,6 +44,6 @@ export async function GET() {
     });
     return NextResponse.json(users, { status: 200 });
   } catch (err: any) {
-    return NextResponse.json({ error: 'Failed to fetch users', detail: err.message }, { status: 500 });
+    return NextResponse.json({ error: 'ユーザー情報の取得に失敗しました。', detail: err.message }, { status: 500 });
   }
 }

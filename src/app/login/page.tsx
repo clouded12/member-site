@@ -17,6 +17,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -28,6 +29,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginForm) => {
+    setIsLoading(true);
     try {
       const res = await fetch("/api/login", {
         method: "POST",
@@ -40,14 +42,18 @@ export default function LoginPage() {
       const result = await res.json();
 
       if (res.ok) {
+        setIsLoading(false);
         // ログイン成功 → ダッシュボードへ遷移
         router.push("/dashboard");
       } else {
+        setIsLoading(false);
         // エラーメッセージを表示
         setErrorMessage(result.error || "ログインに失敗しました");
       }
     } catch (error) {
       setErrorMessage("サーバーエラーが発生しました");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,7 +99,9 @@ export default function LoginPage() {
         {/* エラーメッセージ表示 */}
         {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
 
-        <Button type="submit">ログイン</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'ログイン中...':'ログイン'}
+        </Button>
       </form>
 
       <button type="button" 

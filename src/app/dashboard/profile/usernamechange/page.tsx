@@ -55,7 +55,9 @@ export default function UsernameChange() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center mb-6 text-black">ユーザー名の変更</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-black">
+        ユーザー名の変更
+      </h1>
       
       {message && (
           <div className={`p-3 mb-4 rounded-lg text-sm text-center ${message.includes('成功') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
