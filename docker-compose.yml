@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   nextjs-app:
@@ -12,6 +12,20 @@ services:
     volumes:
     - .:/app
     - /app/node_modules # コンテナ内の node_modules をマウントしない
+    # 開発用
+    develop:
+      watch:
+        - path: ./src
+          target: /app/src
+          action: sync
+        - path: ./app
+          target: /app/app
+          action: sync
+        - path: ./components
+          target: /app/components
+          action: sync
+        - path: ./package.json
+          action: rebuild
     environment:
       NODE_ENV: development
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/mydb

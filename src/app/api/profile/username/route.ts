@@ -44,13 +44,13 @@ export async function PUT(request: Request) {
     }
 
     // ユーザー名の一意性を確認
-    const existingUser = await prisma.user.findUnique({
-      where: { username },
-    });
+    // const existingUser = await prisma.user.findUnique({
+    //   where: { username },
+    // });
 
-    if (existingUser && existingUser.id !== userId) {
-      return NextResponse.json({ error: 'Username already taken' }, { status: 409 });
-    }
+    // if (existingUser && existingUser.id !== userId) {
+    //   return NextResponse.json({ error: 'Username already taken' }, { status: 409 });
+    // }
 
     // データベースを更新
     const updatedUser = await prisma.user.update({

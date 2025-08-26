@@ -1,13 +1,9 @@
-"use client";
-
+import DeleteModal from "@/components/DeleteModal";
 import { getCurrentUser } from "@/lib/auth"
 import Link from "next/link";
 import { redirect } from "next/navigation"
-import { useState } from "react";
-import Modal from "react-modal";
 
 export default async function ProfilePage() {
-    const [modalIsOpen, setIsOpen] = useState(false);
     const user = await getCurrentUser();
     
     if(!user) {
@@ -48,16 +44,7 @@ export default async function ProfilePage() {
                         </button>
                     </Link>                    
                 </p>
-                
-                <button onClick={()=>setIsOpen(true)} className="p-4 text-white font-bold bg-red-600 rounded">
-                    ユーザーを削除
-                </button>
-
-                <Modal isOpen={modalIsOpen}>
-                    <button onClick={() => setIsOpen(false)}>
-                        キャンセル
-                    </button>
-                </Modal>
+                <DeleteModal />
             </div>
 
         </div>
