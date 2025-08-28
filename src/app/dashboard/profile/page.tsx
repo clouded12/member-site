@@ -21,15 +21,17 @@ export default async function ProfilePage() {
                     ユーザー名:{user.username}
                 </p>
                 <Link href="/dashboard/profile/usernamechange" passHref>
-                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
-                    ユーザー名を変更
+                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 mb-4 rounded cursor-pointer active:scale-95"
+                    >
+                        ユーザー名を変更
                     </button>
                 </Link>
                 <p className="text-xl">
                     メールアドレス:{user.email}
                 </p>
                 <Link href="/dashboard/profile/emailchange" passHref>
-                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded mb-4">
+                    <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded mb-4 cursor-pointer active:scale-95"
+                    >
                     メールアドレスを変更
                     </button>
                 </Link>
@@ -39,7 +41,8 @@ export default async function ProfilePage() {
                 </p>
                 <p>
                     <Link href="/dashboard/profile/passwordchange">
-                        <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded">
+                        <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded cursor-pointer active:scale-95"
+                        >
                         パスワードを変更
                         </button>
                     </Link>                    

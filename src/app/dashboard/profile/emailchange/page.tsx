@@ -80,7 +80,7 @@ export default function EmailChange() {
           <button
             type="submit"
             disabled={isLoading}
-            className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700" 
+            className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700 active:scale-95 font-bold" 
           >
             保存
           </button>
@@ -88,7 +88,8 @@ export default function EmailChange() {
             type="button"
             onClick={() => router.push('/dashboard/profile')}
             disabled={isLoading}
-            className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700">
+            className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700 active:scale-95 font-bold"
+          >
             キャンセル
           </button>
         </div>

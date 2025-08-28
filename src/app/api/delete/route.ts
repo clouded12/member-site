@@ -11,8 +11,11 @@ export async function DELETE(req: NextRequest) {
   const user = await getCurrentUser();
 
   if(!user) {
+    console.log('未認証のユーザーです');
     return NextResponse.json({ error: 'ログイン認証切れ' }, { status: 401 });
   }
+
+  console.log('削除対象ユーザー:', user);
 
   try {
     // ユーザー削除
@@ -23,6 +26,8 @@ export async function DELETE(req: NextRequest) {
     // Redisからセッション削除
     const cookieStore = req.cookies;
     const sessionId = cookieStore.get('session_id')?.value;
+    console.log('削除対象セッションID:', sessionId); 
+
     if(sessionId) {
       await redis.del(`session:${sessionId}`);
     }

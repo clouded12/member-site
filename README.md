@@ -4,13 +4,21 @@
 このプロジェクトは登録したユーザーのみがログインでき、ログイン後にTodoリストを操作できるといった会員サイトを構成するものです。
 
 ## 使用技術
-フロントエンドフレームワーク
+# フロントエンドフレームワーク
 Next.js/React/TailwindCSS
-フロントエンド言語
+# フロントエンド言語
 TypeScript
-データベース
+# バックエンド
+Node.js/Prisma/JWT/Redis
+# データベース
 PostgreSQL
+# インフラ
+Docker
+# ログイン認証
+Redis + JWT
+
 
 ## 使い方
 1. コマンド: docker-compose up -d でDockerコンテナを起動
 2. localhost:3000/login にアクセスするとログイン画面に遷移する
+3. 

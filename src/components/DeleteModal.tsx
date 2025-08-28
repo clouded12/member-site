@@ -16,8 +16,8 @@ export default function DeleteModal () {
     });
 
     // エラー確認用
-    // const data = await res.json();
-    // console.log('削除レスポンス:', data);
+    const data = await res.json();
+    console.log('削除レスポンス:', data);
     
     if (res.ok) {
       // ユーザー削除成功で、ログイン画面に戻る
@@ -29,31 +29,39 @@ export default function DeleteModal () {
 
   return ( 
     <div>
-      <button onClick={()=>setIsOpen(true)} className="p-3 text-white font-bold bg-red-600 rounded-2xl">
+      <button 
+        onClick={()=>setIsOpen(true)} 
+        className="p-3 text-white font-bold bg-red-600 hover:bg-red-800 cursor-pointer rounded active:scale-95"
+      >
           ユーザーを削除
       </button>
 
       <Modal 
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
-        className=""
+        className="w-full max-w-sm p-6 bg-white rounded shadow-lg mx-auto mt-20 border-2 border-red-500"
       >
-        <div className="text-black">
-          このユーザーではログインできなくなります。
-          本当に削除しますか？
+        <div className="flex flex-col items-center">
+            <h2 className="text-black font-bold">
+            このユーザーではログインできなくなります。
+            本当に削除しますか？
+            </h2>
+            <div className="flex-row space-x-3">
+              <button
+              onClick={handleDelete}
+              className="bg-red-600 rounded font-bold p-3 px-4 hover:bg-red-800 cursor-pointer active:scale-95"
+              >
+                削除
+              </button>
+              <button 
+              onClick={() => setIsOpen(false)} 
+              className="rounded bg-green-500 font-bold p-3 hover:bg-green-600 cursor-pointer active:scale-95"
+              >
+                キャンセル
+              </button>
+            </div>           
         </div>
-        <button
-          onClick={handleDelete}
-          className="bg-red-600 rounded font-bold p-3"
-        >
-          削除
-        </button>
-        <button 
-          onClick={() => setIsOpen(false)} 
-          className="text-black rounded bg-green-400 font-bold p-3"
-        >
-          キャンセル
-        </button>
+        
       </Modal>
     </div>
     
