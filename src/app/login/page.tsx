@@ -97,7 +97,7 @@ export default function LoginPage() {
         </div>
 
         {/* エラーメッセージ表示 */}
-        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+        {errorMessage && <p className="text-red-500 text-sm text-center">{errorMessage}</p>}
 
         <Button type="submit" disabled={isLoading}>
           {isLoading ? 'ログイン中...':'ログイン'}

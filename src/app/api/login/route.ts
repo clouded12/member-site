@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   const { email, password } = body;
 
   if (!email || !password) {
-    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    return NextResponse.json({ error: '入力していない項目があります' }, { status: 400 });
   }
 
   try {
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ error: 'ユーザーが見つかりません' }, { status: 404 });
     }
 
     // bcryptを使ってハッシュと比較
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       user.password);
 
     if (!isPasswordValid) {
-      return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
+      return NextResponse.json({ error: 'パスワードが違います' }, { status: 401 });
     }
 
     // JWTを発行(payload に userId)
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     // クッキーにsessionIdを保存(HttpOnly)
     const response = NextResponse.json({
-      message: "Login successful",
+      message: "ログイン成功",
       username: user.username,
       email: user.email,
     });
@@ -66,6 +66,6 @@ export async function POST(req: NextRequest) {
     // });
   } catch (err: any) {
     console.error("Login error:", err);
-    return NextResponse.json({ error: 'Login failed', detail: err.message }, { status: 500 });
+    return NextResponse.json({ error: 'ログイン失敗', detail: err.message }, { status: 500 });
   }
 }

@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import Input from "@/components/input";
 import { validationSchema } from "@/utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,6 +17,7 @@ interface RegistrationForm {
 }
 
 export default function Registration() {
+  const router = useRouter();
   // パスワードの表示状態を切り替えるためのuseState
   const [showPassword, setShowPassword] = useState(false);
 
@@ -52,6 +54,7 @@ export default function Registration() {
       const result = await res.json();
       console.log("登録成功:", result);
       alert("登録が完了しました！");
+      router.push("/login");   // 登録成功でログイン画面に遷移
     } catch (error) {
       console.error("送信中にエラー:", error);
       alert("通信エラーが発生しました");

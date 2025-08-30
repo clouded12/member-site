@@ -2,12 +2,17 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 
 export default function DeleteModal () {
   const router = useRouter();
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  // エラー回避
+  useEffect(() => {
+    Modal.setAppElement("#modal-root");
+  }, []);
 
   // ユーザー削除
   const handleDelete = async () => {
@@ -28,7 +33,7 @@ export default function DeleteModal () {
   };
 
   return ( 
-    <div>
+    <div id="modal-root">
       <button 
         onClick={()=>setIsOpen(true)} 
         className="p-3 text-white font-bold bg-red-600 hover:bg-red-800 cursor-pointer rounded active:scale-95"
