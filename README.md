@@ -17,12 +17,12 @@ Docker
 # ログイン認証
 Redis + JWT
 
-
 ## 使い方
 # 前提条件
 - Docker Desktopをインストールしてあり、起動していること。
 1. PowerShell または コマンドプロンプトで、docker compose up -d を実行する。
-2. コンテナ起動後、ブラウザで localhost:3000 にアクセス、 ログイン画面に遷移する
+2. npx prisma migrate dev --name init を実行して、Prismaのマイグレーションを作成
+3. コンテナ起動後、ブラウザで http://localhost:3000 にアクセス、 ログイン画面に遷移する。
 
 ## 機能
 - メールアドレス、ユーザー名、パスワードの入力で、新規会員登録
