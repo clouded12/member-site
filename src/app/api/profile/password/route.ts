@@ -7,43 +7,47 @@ import bcrypt from "bcrypt";
 import { error } from "console";
 
 // RedisとPrismaのインスタンスを初期化
-const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function PUT(request: Request) {
   try {
     // 認証済みユーザーの確認
-    const sessionId = (await cookies()).get('session_id')?.value;
-    if(!sessionId) {
-      return NextResponse.json({ error: 'Not authenticated' },
-        {status: 401});
+    const sessionId = (await cookies()).get("session_id")?.value;
+    if (!sessionId) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
     const token = await redis.get(`session:${sessionId}`);
     if (!token) {
-      return NextResponse.json({ error: 'Invalid or expired session '}, { status: 401 });
+      return NextResponse.json(
+        { error: "Invalid or expired session " },
+        { status: 401 },
+      );
     }
 
     let payload: { userId: number };
     try {
       payload = jwt.verify(token, JWT_SECRET) as { userId: number };
     } catch (err) {
-      return NextResponse.json({ error: 'Invalid token' }, 
-      { status: 401 });
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
     const userId = payload.userId;
 
     // リクエストボディから今のパスワードと新しいパスワードを取得
-    const { currentPassword, newPassword } 
-    = await request.json();
+    const { currentPassword, newPassword } = await request.json();
 
     // バリデーション
-    if (!currentPassword || !newPassword || 
-      newPassword.length < 6) {
-      return NextResponse.json({ error: '現在のパスワードと、8文字以上の新しいパスワードを入力してください。' }, 
-      { status: 400 });
+    if (!currentPassword || !newPassword || newPassword.length < 6) {
+      return NextResponse.json(
+        {
+          error:
+            "現在のパスワードと、8文字以上の新しいパスワードを入力してください。",
+        },
+        { status: 400 },
+      );
     }
 
     // ユーザーをデータベースから取得
@@ -52,14 +56,19 @@ export async function PUT(request: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' },
-        { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // 現在のパスワードが正しいか確認
-    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
-    if(!isPasswordValid) {
-      return NextResponse.json({ error: '現在のパスワードが正しくありません。' }, { status: 401 });
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        { error: "現在のパスワードが正しくありません。" },
+        { status: 401 },
+      );
     }
 
     // 新しいパスワードをハッシュ化
@@ -69,17 +78,21 @@ export async function PUT(request: Request) {
     // データベースを更新
     await prisma.user.update({
       where: { id: userId },
-      data: { password: newPasswordHash},
+      data: { password: newPasswordHash },
     });
 
     // セキュリティのため、セッションを無効化
     await redis.del(`session:${sessionId}`);
 
-    return NextResponse.json({ message: 'パスワードが正常に更新されました。再ログインしてください。' },
-    { status: 200 });
+    return NextResponse.json(
+      { message: "パスワードが正常に更新されました。再ログインしてください。" },
+      { status: 200 },
+    );
   } catch (err: any) {
-    console.error('Password update error:', err);
-    return NextResponse.json({ error: 'パスワードの更新に失敗しました。', detail: err.message }, { status: 500 });
+    console.error("Password update error:", err);
+    return NextResponse.json(
+      { error: "パスワードの更新に失敗しました。", detail: err.message },
+      { status: 500 },
+    );
   }
 }
-

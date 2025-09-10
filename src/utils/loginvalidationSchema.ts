@@ -2,11 +2,9 @@
 import z, { email } from "zod";
 
 export const loginValidationSchema = z.object({
-    email: z
-        .string()
-        .nonempty("メールアドレスは必須です。")
-        .email("正しいメールアドレスを入力してください。"),
-    password: z
-        .string()
-        .nonempty("パスワードは必須です。"),
-})
+  email: z
+    .string()
+    .nonempty("メールアドレスは必須です。")
+    .email("正しいメールアドレスを入力してください。"),
+  password: z.string().nonempty("パスワードは必須です。"),
+});

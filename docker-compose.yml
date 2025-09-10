@@ -7,11 +7,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-    - '3000:3000'
-    - '5555:5555'
+      - "3000:3000"
+      - "5555:5555"
     volumes:
-    - .:/app
-    - /app/node_modules # コンテナ内の node_modules をマウントしない
+      - .:/app
+      - /app/node_modules # コンテナ内の node_modules をマウントしない
     # 開発用
     develop:
       watch:
@@ -62,7 +62,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mydb
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -70,10 +70,10 @@ services:
     image: redis:7
     container_name: redis-server
     ports:
-      - '6379:6379'
+      - "6379:6379"
     volumes:
       - redis_data:/data
 
 volumes:
   postgres_data:
-  redis_data:      
+  redis_data:

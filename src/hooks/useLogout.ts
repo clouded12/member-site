@@ -1,16 +1,16 @@
 export async function logout() {
   try {
-    const res = await fetch('/api/logout', {
-      method:'POST',
+    const res = await fetch("/api/logout", {
+      method: "POST",
     });
 
-    if(res.ok) {
+    if (res.ok) {
       // ログアウト成功でログイン画面へリダイレクト
-      window.location.href = '/login';
+      window.location.href = "/login";
     } else {
-      console.error('Logout failed');
+      console.error("Logout failed");
     }
   } catch (err) {
-    console.error('Logout error', err);
+    console.error("Logout error", err);
   }
 }

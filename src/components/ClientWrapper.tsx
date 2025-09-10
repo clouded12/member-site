@@ -1,6 +1,10 @@
 // DelteModalをラップするためのコンポーネント
-'use client';
+"use client";
 
-export default function ClientWrapper({ children }: { children: React.ReactNode }) {
+export default function ClientWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }

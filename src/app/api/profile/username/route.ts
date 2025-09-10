@@ -7,30 +7,31 @@ import { error } from "console";
 import { email } from "zod";
 
 // RedisとPrismaのインスタンスを初期化
-const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function PUT(request: Request) {
   try {
     // 認証済みユーザーの確認
-    const sessionId = (await cookies()).get('session_id')?.value;
-    if(!sessionId) {
-      return NextResponse.json({ error: 'Not authenticated' },
-        {status: 401});
+    const sessionId = (await cookies()).get("session_id")?.value;
+    if (!sessionId) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
     const token = await redis.get(`session:${sessionId}`);
     if (!token) {
-      return NextResponse.json({ error: 'Invalid or expired session '}, { status: 401 });
+      return NextResponse.json(
+        { error: "Invalid or expired session " },
+        { status: 401 },
+      );
     }
 
     let payload: { userId: number };
     try {
       payload = jwt.verify(token, JWT_SECRET) as { userId: number };
     } catch (err) {
-      return NextResponse.json({ error: 'Invalid token' }, 
-      { status: 401 });
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
     const userId = payload.userId;
@@ -39,8 +40,11 @@ export async function PUT(request: Request) {
     const { username } = await request.json();
 
     // バリデーション
-    if (!username || username.trim() === '') {
-      return NextResponse.json({ error: 'Username cannot be empty' }, { status: 400 });
+    if (!username || username.trim() === "") {
+      return NextResponse.json(
+        { error: "Username cannot be empty" },
+        { status: 400 },
+      );
     }
 
     // ユーザー名の一意性を確認
@@ -60,11 +64,12 @@ export async function PUT(request: Request) {
       select: { id: true, username: true, email: true },
     });
 
-    return NextResponse.json({ user: updatedUser },
-      { status: 200 });
+    return NextResponse.json({ user: updatedUser }, { status: 200 });
   } catch (err: any) {
-    console.error('User profile update error:', err);
-    return NextResponse.json({ error: 'Failed to update user profile', detail: err.message }, { status: 500 });
+    console.error("User profile update error:", err);
+    return NextResponse.json(
+      { error: "Failed to update user profile", detail: err.message },
+      { status: 500 },
+    );
   }
 }
-

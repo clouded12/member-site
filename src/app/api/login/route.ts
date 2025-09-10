@@ -9,14 +9,17 @@ const prisma = new PrismaClient();
 const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
-const SESSION_TTL_SECONDS = 60 * 60;  // 1時間
+const SESSION_TTL_SECONDS = 60 * 60; // 1時間
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { email, password } = body;
 
   if (!email || !password) {
-    return NextResponse.json({ error: '入力していない項目があります' }, { status: 400 });
+    return NextResponse.json(
+      { error: "入力していない項目があります" },
+      { status: 400 },
+    );
   }
 
   try {
@@ -25,19 +28,26 @@ export async function POST(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'ユーザーが見つかりません' }, { status: 404 });
+      return NextResponse.json(
+        { error: "ユーザーが見つかりません" },
+        { status: 404 },
+      );
     }
 
     // bcryptを使ってハッシュと比較
-    const isPasswordValid = await bcrypt.compare(password,
-      user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return NextResponse.json({ error: 'パスワードが違います' }, { status: 401 });
+      return NextResponse.json(
+        { error: "パスワードが違います" },
+        { status: 401 },
+      );
     }
 
     // JWTを発行(payload に userId)
-    const token = jwt.sign({ userId: user.id}, JWT_SECRET, { expiresIn: "1h"});
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     // セッションIDを生成し、Redisに保存
     const sessionId = uuidv4();
@@ -66,6 +76,9 @@ export async function POST(req: NextRequest) {
     // });
   } catch (err: any) {
     console.error("Login error:", err);
-    return NextResponse.json({ error: 'ログイン失敗', detail: err.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "ログイン失敗", detail: err.message },
+      { status: 500 },
+    );
   }
 }

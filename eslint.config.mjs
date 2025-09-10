@@ -12,8 +12,9 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: ['**/.next/**', '**/node_modules/**'],
-  }
+    // .next, node_modules  以下のファイルは無視する
+    ignores: ["**/.next/**", "**/node_modules/**"],
+  },
 ];
 
 export default eslintConfig;

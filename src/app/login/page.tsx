@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Button from "@/components/Button";
 import Input from "@/components/input";
@@ -15,7 +15,7 @@ interface LoginForm {
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,13 +62,18 @@ export default function LoginPage() {
   };
   const resetClick = () => {
     router.push("/reset");
-  }
+  };
 
   return (
     <div className="py-4">
-      <h1 className="font-bold text-4xl text-blue-500 mb-4 justify-self-center">ログイン</h1>
+      <h1 className="font-bold text-4xl text-blue-500 mb-4 justify-self-center">
+        ログイン
+      </h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md space-y-4 mx-auto">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-md space-y-4 mx-auto"
+      >
         <Input
           id="email"
           type="email"
@@ -97,14 +102,17 @@ export default function LoginPage() {
         </div>
 
         {/* エラーメッセージ表示 */}
-        {errorMessage && <p className="text-red-500 text-sm text-center">{errorMessage}</p>}
+        {errorMessage && (
+          <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+        )}
 
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'ログイン中...':'ログイン'}
+          {isLoading ? "ログイン中..." : "ログイン"}
         </Button>
       </form>
 
-      <button type="button" 
+      <button
+        type="button"
         className="flex justify-self-center underline text-cyan-500 cursor-pointer"
         onClick={resetClick}
       >

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Input from "@/components/input";
 import Button from "@/components/Button";
@@ -9,9 +9,9 @@ import { resetValidationSchema } from "@/utils/resetvalidationSchema";
 
 // 型
 interface ResetForm {
-    email: string;
-    password: string;
-    confirmation: string;
+  email: string;
+  password: string;
+  confirmation: string;
 }
 
 export default function Reset() {
@@ -19,13 +19,13 @@ export default function Reset() {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
-          register,
-          handleSubmit,
-          formState: { errors, isSubmitting },
-      } = useForm<ResetForm>({
-          mode: "onChange",
-          resolver: zodResolver(resetValidationSchema),
-      });
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ResetForm>({
+    mode: "onChange",
+    resolver: zodResolver(resetValidationSchema),
+  });
 
   const onSubmit = async (data: ResetForm) => {
     // api/resetpasswordのPOSTを実行
@@ -55,7 +55,7 @@ export default function Reset() {
         パスワード再設定
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input 
+        <Input
           label="メールアドレス:"
           id="email"
           type="email"
@@ -64,7 +64,7 @@ export default function Reset() {
         />
 
         <Input
-        label="新しいパスワード:" 
+          label="新しいパスワード:"
           id="password"
           type={showPassword ? "text" : "password"}
           error={errors.password?.message}
@@ -97,5 +97,5 @@ export default function Reset() {
         </Button>
       </form>
     </div>
-  )
+  );
 }
