@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 // 型
 interface RegistrationForm {
@@ -46,17 +47,25 @@ export default function Registration() {
       if (!res.ok) {
         const errorData = await res.json();
         console.error("登録に失敗:", errorData);
-        alert(`登録に失敗しました: ${errorData.message || "エラー"}`);
+        toast.error(`登録に失敗しました: ${errorData.message || "エラー"}`);
+        // alert(`登録に失敗しました: ${errorData.message || "エラー"}`);
         return;
       }
 
       const result = await res.json();
       console.log("登録成功:", result);
-      alert("登録が完了しました！");
+      // トースト表示
+      toast.success("登録が完了しました！", {
+        duration: 4000,
+      });
+      // alert("登録が完了しました！");
       router.push("/login"); // 登録成功でログイン画面に遷移
     } catch (error) {
       console.error("送信中にエラー:", error);
-      alert("通信エラーが発生しました");
+      toast.error("通信エラーが発生しました", {
+        duration: 4000,
+      });
+      // alert("通信エラーが発生しました");
     }
   };
 

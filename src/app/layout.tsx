@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
           <h1 className="text-2xl text-center font-bold">会員サイト</h1>
         </header>
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

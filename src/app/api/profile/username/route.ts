@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import Redis from "ioredis";
 import { PrismaClient } from "@/generated/prisma";
-import { error } from "console";
-import { email } from "zod";
 
 // RedisとPrismaのインスタンスを初期化
 const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");

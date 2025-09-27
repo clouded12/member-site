@@ -119,7 +119,9 @@ export default function TodoPage() {
   return (
     <div>
       <div className="mt-8 bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Todoリスト</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Todoリスト
+        </h2>
         {/* タスク追加、完了、削除の動作を設定 */}
         <TodoList
           todoItems={todos}

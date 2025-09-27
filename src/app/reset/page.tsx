@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { resetValidationSchema } from "@/utils/resetvalidationSchema";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 // 型
 interface ResetForm {
@@ -15,6 +17,7 @@ interface ResetForm {
 }
 
 export default function Reset() {
+  const router = useRouter();
   // パスワードの表示状態を切り替えるためのuseState
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,9 +46,17 @@ export default function Reset() {
 
       const result = await res.json();
       console.log("登録成功:", result);
+      // トースト表示
+      toast.success("パスワードを変更しました!", {
+        duration: 4000,
+      });  
+      router.push("/login");  // パスワード変更完了でログイン画面に遷移
     } catch (error) {
       console.error("送信中にエラー:", error);
-      alert("通信エラーが発生しました");
+      // alert("通信エラーが発生しました");
+      toast.error("通信エラーが発生しました", {
+        duration: 4000,
+      });
     }
   };
 

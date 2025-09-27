@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import Redis from "ioredis";
 import { PrismaClient } from "@/generated/prisma";
 import bcrypt from "bcrypt";
-import { error } from "console";
 
 // RedisとPrismaのインスタンスを初期化
 const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");

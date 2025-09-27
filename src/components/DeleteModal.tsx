@@ -3,6 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Modal from "react-modal";
 
 export default function DeleteModal() {
@@ -26,9 +27,14 @@ export default function DeleteModal() {
 
     if (res.ok) {
       // ユーザー削除成功で、ログイン画面に戻る
+      toast.success("ユーザーを削除しました", {
+        duration:5000,
+      });
       router.push("/login");
     } else {
-      alert("削除に失敗しました");
+      toast.error("ユーザーを削除できませんでした", {
+        duration:4000,
+      });
     }
   };
 

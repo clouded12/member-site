@@ -65,7 +65,7 @@ const TodoList: React.FC<TodoListProps> = ({
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 hover:cursor-pointer active:scale-95"
         >
           追加
         </button>

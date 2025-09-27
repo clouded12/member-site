@@ -21,12 +21,16 @@ export default async function ProfilePage() {
             ユーザー名を変更
           </button>
         </Link>
-        <p className="text-xl">メールアドレス:{user.email}</p>
-        <Link href="/dashboard/profile/emailchange" passHref>
+        <p className="text-xl">
+          メールアドレス:{user.email} 
+          <span className="text-red-500"> (変更できません)</span>
+        </p>
+        
+        {/* <Link href="/dashboard/profile/emailchange" passHref>
           <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-2 rounded mb-4 cursor-pointer active:scale-95">
             メールアドレスを変更
           </button>
-        </Link>
+        </Link> */}
 
         <p className="text-xl">パスワード:●●●●●●</p>
         <p>
@@ -36,6 +40,7 @@ export default async function ProfilePage() {
             </button>
           </Link>
         </p>
+        {/* ユーザー削除ボタン */}
         <DeleteModal />
       </div>
     </div>

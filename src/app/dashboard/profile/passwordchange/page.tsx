@@ -3,6 +3,7 @@
 import Input from "@/components/input";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function UsernameChange() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -48,8 +49,13 @@ export default function UsernameChange() {
       });
 
       if (res.ok) {
+        // トースト表示
+        toast.success("パスワードを変更しました！", {
+          duration: 4000,
+        });  
         // パスワード変更成功後、再ログインのためログインページに遷移
-        window.location.href = "/login";
+        // window.location.href = "/login";
+        router.push("/login");
       } else {
         const { error } = await res.json();
         setMessage(`更新に失敗しました: ${error}`);
@@ -123,7 +129,7 @@ export default function UsernameChange() {
           <button
             type="submit"
             disabled={isLoading}
-            className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-auto hover:bg-blue-700 active:scale-95 font-bold"
+            className="relative h-12 rounded bg-blue-500 px-3 py-3 hover:cursor-pointer hover:bg-blue-700 active:scale-95 font-bold"
           >
             {isLoading ? "保存中..." : "保存"}
           </button>
@@ -131,7 +137,7 @@ export default function UsernameChange() {
             type="button"
             onClick={() => router.push("/dashboard/profile")}
             disabled={isLoading}
-            className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-auto hover:bg-red-700 active:scale-95 font-bold"
+            className="relative h-12 rounded bg-red-500 px-3 py-3 hover:cursor-pointer hover:bg-red-700 active:scale-95 font-bold"
           >
             キャンセル
           </button>

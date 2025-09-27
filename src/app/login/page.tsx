@@ -103,7 +103,7 @@ export default function LoginPage() {
 
         {/* エラーメッセージ表示 */}
         {errorMessage && (
-          <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          <p className="text-red-500 text-sm text-center font-bold">{errorMessage}</p>
         )}
 
         <Button type="submit" disabled={isLoading}>
